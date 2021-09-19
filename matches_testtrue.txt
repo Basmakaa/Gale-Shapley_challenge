@@ -1,0 +1,4 @@
+Match 0: A-X
+Match 1: B-Z
+Match 2: C-Y
+This solution is stable !

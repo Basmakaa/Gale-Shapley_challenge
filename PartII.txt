@@ -1,0 +1,72 @@
+Projet 1, Partie II
+
+Question 1: 
+Le programme Gale-Shapley va retourner la premiere solution stable (A,Y), (B,Z), (C,X), car des le depart, le premier choix favoris de chaque employeur est different des choix des
+autres employeurs, et donc on ne tombe pas dans la situation ou un etudiant devra choisir entre un des employeurs. Par suite des la premiere etape chaque etudiant est assigne a un
+employeur, et ainsi il n'ya plus d'employeur qui ne sont pas assignes, d'ou le programme s'arrete a cette etape. Il faut savoir qu'effectivmeent cet algorithme favorise un membre du
+couple par rapport a un autre, il favorise l'homme dans la notion des marriages stables et donc ici c'est l'employeur qui est favorise d'une certaine maniere.
+
+Question2 : 
+Compexite au pire des cas : O(N^2) car le pire des cas est lorsque tous les etudiants proposent a tous les
+les employeurs c'est a dire n*n et puisque un etudiant ne peut proposer a un employer plus d'une fois 
+alors n^2 est le nombre max de propositions que peut se produire lors de l'execution de 
+l'algorythme Gale-Shaply 
+
+Complexite au meilleur des cas: O(N) au cas ou les premiers choix favoris des employeurs sont differents les uns des autres comme c'est le cas pour la question 1 est donc le
+nombre de proposition est strictement egale au nombre d'employeurs == nombre d'etudiant == N. Puisque chaque employeur propose une seule est unique fois et les etudiants 
+ne tombent pas dans la situation ou ils devront proposer a un employeur alors le nombre de propositions minimal est egale a N. 
+
+Question 3: 
+Afin de determiner si une solution est stable ou pas, je vais implementer une methode isStable() qui retourne True si la solution est stable et False sinon. Bien sur ceci est la suite 
+de la partie I. Nous allons Utiliser l'implementation de la partie I pour d'abord trouver la solution et matcher chaque etudiant avec un employeur, Ensuite nous allons ajouter l'implementation
+de notre methode afin de determiner si elle es stable ou pas. Cest a dire que je vais ajouter la methode isSTable() au sein de la classe MatchingClass pour ne pas doubler le travail. 
+     Voici les etapes que j'ai suivi : 
+  1- Initialiser les listes etudiants et students qui contiennent les indices representant les matches effectues (Deja Fait partie I)
+  2- Unitialiser Un tableau A de dimension nxn avec A[s][e] étant le rang donné par l’étudiant s à l’employeur e (Deja fait partie 1).
+  3- Initialiser Un tableau B de dimension nxn avec B[e][s] étant le rang donné par l’employeur e à l’étudiant s Voici son implementation:
+
+	//initializer B parmis les variables d'instance de la classe MatchingCLass 
+	private static int[][] B;
+
+	//Initialiser B dans la methode Initialize() de la partie I
+         B = new int[n][n];
+         int v2 = 0;
+        //loop 7: setting up the matrix B
+        //creating an ArrayList that contains all the List of each line of pairs
+        List<List<String>> itemsContainer2 = new ArrayList<>();
+        for(int i=2*n+1;i<tokens.size();i++){
+          int y = 0;
+          String mystring = tokens.get(i).replace(","," ");
+          List<String> items = Arrays.asList(mystring.split(" "));
+          itemsContainer2.add(items);
+        }    
+          for(List<String> list:itemsContainer){
+            int count = 0;
+            int[] sublist = new int[N];
+            for(int y=0;y<2*N-1;y+=2){
+            int number = Integer.parseInt(list.get(y));
+            sublist[count++]=number;
+          }
+          B[v2++]=sublist;
+        }
+
+   4- utiliser la methode execute() de la partie I afin de trouver la solution des matches
+   5- creer la methode isStable() Voici l'implementation : 
+	
+	 public static String isStable() throws IOException {;
+        
+          for(int i=0;i<N;i++) {
+            for(int j=0; j<N;j++) {
+              int k = studentsindices[i];
+              if((A[i][k]>A[i][j]) && (B[k][i]>B[k][j]) ){
+                    return "Oops, This solution is not stable";
+              }
+            }
+          } 
+          return "This solution is stable ! ";
+        
+      }
+
+	
+
+
